@@ -28,11 +28,15 @@ function gencert {
 
     cfssl gencert -initca ca-csr.json | cfssljson -bare ca
     cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json \
-          -profile=kubernetes etcd-csr.jon | cfssljson -bare etcd
+          -profile=kubernetes etcd-csr.json | cfssljson -bare etcd
 
     mv ca-key.pem $output
     mv ca.pem $output
     mv ca.csr $output
+
+    mv etcd-key.pem $output
+    mv etcd.pem $output
+    mv etcd.csr $output
 }
 
 install_cfssl
