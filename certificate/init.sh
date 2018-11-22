@@ -25,7 +25,10 @@ function gencert {
     output=$workdir/output
     rm -rf $output
     mkdir -p $workdir/output
+
     cfssl gencert -initca ca-csr.json | cfssljson -bare ca
+    cfssl gencert -ca=ca.pem -ca-key=ca-key.pem -config=ca-config.json \
+          -profile=kubernetes etcd-csr.jon | cfssljson -bare etcd
 
     mv ca-key.pem $output
     mv ca.pem $output
